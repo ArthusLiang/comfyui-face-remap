@@ -97,7 +97,7 @@ class FaceRemap:
 
     @classmethod
     def INPUT_TYPES(self):
-        ratio_mode = ['width', 'height', 'catercorner']
+        ratio_mode = ['catercorner', 'width', 'height']
         return {
             'required': {
                 "object_image": ("IMAGE", ),
@@ -108,7 +108,7 @@ class FaceRemap:
             }
         }
     
-    def mask_box_detect(self, object_image, object_mask, coordinate_image, coordinate_mask, ratio_mode):
+    def mask_box_detect(self, object_image, object_mask, coordinate_image, coordinate_mask, ratio_mode='catercorner'):
 
         (x1,y1,w1,h1) = mask_to_box(object_mask)
         (img1_w,img1_h) = get_image_size(object_image)

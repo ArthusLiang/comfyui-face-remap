@@ -1,13 +1,13 @@
 {
-  "last_node_id": 18,
-  "last_link_id": 19,
+  "last_node_id": 28,
+  "last_link_id": 40,
   "nodes": [
     {
-      "id": 11,
-      "type": "LoadImage",
+      "id": 22,
+      "type": "UltralyticsDetectorProvider",
       "pos": {
-        "0": 170,
-        "1": -204,
+        "0": 26,
+        "1": -70,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -18,8 +18,8 @@
         "9": 0
       },
       "size": {
-        "0": 456.67822265625,
-        "1": 518.9844970703125
+        "0": 304.8785705566406,
+        "1": 78
       },
       "flags": {},
       "order": 0,
@@ -27,37 +27,35 @@
       "inputs": [],
       "outputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            11,
-            12
-          ],
-          "slot_index": 0,
+          "name": "BBOX_DETECTOR",
+          "type": "BBOX_DETECTOR",
+          "links": null,
           "shape": 3
         },
         {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null,
+          "name": "SEGM_DETECTOR",
+          "type": "SEGM_DETECTOR",
+          "links": [
+            23,
+            26
+          ],
+          "slot_index": 1,
           "shape": 3
         }
       ],
-      "title": "Load Image Avatar",
       "properties": {
-        "Node name for S&R": "LoadImage"
+        "Node name for S&R": "UltralyticsDetectorProvider"
       },
       "widgets_values": [
-        "0bfc7ee383b68ab01367107752ed45af7575 1.png",
-        "image"
+        "segm/face_yolov8m-seg_60.pt"
       ]
     },
     {
-      "id": 12,
+      "id": 13,
       "type": "LoadImage",
       "pos": {
-        "0": 183,
-        "1": 575,
+        "0": 18,
+        "1": 73,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -67,10 +65,10 @@
         "8": 0,
         "9": 0
       },
-      "size": [
-        374.8875777604412,
-        797.8593936808429
-      ],
+      "size": {
+        "0": 315,
+        "1": 314
+      },
       "flags": {},
       "order": 1,
       "mode": 0,
@@ -80,8 +78,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            10,
-            14
+            33,
+            38
           ],
           "slot_index": 0,
           "shape": 3
@@ -93,21 +91,21 @@
           "shape": 3
         }
       ],
-      "title": "Load Image Base",
+      "title": "Load Image Face",
       "properties": {
         "Node name for S&R": "LoadImage"
       },
       "widgets_values": [
-        "m1.png",
+        "3 (2).png",
         "image"
       ]
     },
     {
-      "id": 10,
-      "type": "LayerMask: SegmentAnythingUltra V2",
+      "id": 18,
+      "type": "LoadImage",
       "pos": {
-        "0": 831,
-        "1": 715,
+        "0": 26,
+        "1": 463,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -118,63 +116,98 @@
         "9": 0
       },
       "size": {
-        "0": 433.35003662109375,
-        "1": 366
+        "0": 315,
+        "1": 314
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22
+          ],
+          "slot_index": 0,
+          "shape": 3
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "shape": 3
+        }
+      ],
+      "title": "Load Image Bg",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "1 (3).png",
+        "image"
+      ]
+    },
+    {
+      "id": 23,
+      "type": "SegmDetectorCombined_v2",
+      "pos": {
+        "0": 430,
+        "1": -13,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "size": {
+        "0": 315,
+        "1": 102
       },
       "flags": {},
       "order": 3,
       "mode": 0,
       "inputs": [
         {
+          "name": "segm_detector",
+          "type": "SEGM_DETECTOR",
+          "link": 23
+        },
+        {
           "name": "image",
           "type": "IMAGE",
-          "link": 10
+          "link": 33
         }
       ],
       "outputs": [
         {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "mask",
+          "name": "MASK",
           "type": "MASK",
           "links": [
-            15
+            36
           ],
-          "slot_index": 1,
+          "slot_index": 0,
           "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "LayerMask: SegmentAnythingUltra V2"
+        "Node name for S&R": "SegmDetectorCombined_v2"
       },
       "widgets_values": [
-        "sam_vit_h (2.56GB)",
-        "GroundingDINO_SwinT_OGC (694MB)",
-        0.24,
-        "VITMatte",
-        5,
-        5,
-        0.15,
-        0.99,
-        true,
-        "face",
-        "cuda",
-        2,
-        false
-      ],
-      "color": "rgba(27, 80, 119, 0.7)"
+        0.5,
+        0
+      ]
     },
     {
-      "id": 13,
-      "type": "LayerMask: SegmentAnythingUltra V2",
+      "id": 21,
+      "type": "HintImageEnchance",
       "pos": {
-        "0": 691,
-        "1": 70,
+        "0": 33,
+        "1": 830,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -185,84 +218,17 @@
         "9": 0
       },
       "size": {
-        "0": 439.12158203125,
-        "1": 366
+        "0": 304.5335693359375,
+        "1": 106
       },
       "flags": {},
-      "order": 2,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
-          "name": "image",
+          "name": "hint_image",
           "type": "IMAGE",
-          "link": 11
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [],
-          "slot_index": 0,
-          "shape": 3
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "links": [
-            13
-          ],
-          "slot_index": 1,
-          "shape": 3
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LayerMask: SegmentAnythingUltra V2"
-      },
-      "widgets_values": [
-        "sam_vit_h (2.56GB)",
-        "GroundingDINO_SwinT_OGC (694MB)",
-        0.24,
-        "VITMatte",
-        5,
-        5,
-        0.15,
-        0.99,
-        true,
-        "face",
-        "cuda",
-        2,
-        false
-      ],
-      "color": "rgba(27, 80, 119, 0.7)"
-    },
-    {
-      "id": 16,
-      "type": "MaskToImage",
-      "pos": {
-        "0": 1324,
-        "1": 145,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-        "6": 0,
-        "7": 0,
-        "8": 0,
-        "9": 0
-      },
-      "size": {
-        "0": 264.5999755859375,
-        "1": 26
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": 17
+          "link": 22
         }
       ],
       "outputs": [
@@ -270,22 +236,28 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            16
+            32,
+            40
           ],
-          "shape": 3,
-          "slot_index": 0
+          "slot_index": 0,
+          "shape": 3
         }
       ],
       "properties": {
-        "Node name for S&R": "MaskToImage"
-      }
+        "Node name for S&R": "HintImageEnchance"
+      },
+      "widgets_values": [
+        768,
+        1024,
+        "Crop and Resize"
+      ]
     },
     {
-      "id": 15,
-      "type": "PreviewImage",
+      "id": 24,
+      "type": "SegmDetectorCombined_v2",
       "pos": {
-        "0": 1326,
-        "1": 251,
+        "0": 422,
+        "1": 168,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -296,30 +268,49 @@
         "9": 0
       },
       "size": {
-        "0": 267.79156494140625,
-        "1": 437.67657470703125
+        "0": 315,
+        "1": 102
       },
       "flags": {},
-      "order": 7,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
-          "name": "images",
+          "name": "segm_detector",
+          "type": "SEGM_DETECTOR",
+          "link": 26
+        },
+        {
+          "name": "image",
           "type": "IMAGE",
-          "link": 16
+          "link": 32
         }
       ],
-      "outputs": [],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            37
+          ],
+          "slot_index": 0,
+          "shape": 3
+        }
+      ],
       "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
+        "Node name for S&R": "SegmDetectorCombined_v2"
+      },
+      "widgets_values": [
+        0.5,
+        0
+      ]
     },
     {
-      "id": 14,
+      "id": 28,
       "type": "FaceRemap",
       "pos": {
-        "0": 1319,
-        "1": -34,
+        "0": 793,
+        "1": 73,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -334,28 +325,28 @@
         "1": 118
       },
       "flags": {},
-      "order": 4,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
           "name": "object_image",
           "type": "IMAGE",
-          "link": 12
+          "link": 38
         },
         {
           "name": "object_mask",
           "type": "MASK",
-          "link": 13
+          "link": 36
         },
         {
           "name": "coordinate_image",
           "type": "IMAGE",
-          "link": 14
+          "link": 40
         },
         {
           "name": "coordinate_mask",
           "type": "MASK",
-          "link": 15
+          "link": 37
         }
       ],
       "outputs": [
@@ -363,7 +354,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            19
+            35
           ],
           "shape": 3,
           "slot_index": 0
@@ -371,11 +362,8 @@
         {
           "name": "MASK",
           "type": "MASK",
-          "links": [
-            17
-          ],
-          "shape": 3,
-          "slot_index": 1
+          "links": null,
+          "shape": 3
         }
       ],
       "properties": {
@@ -386,11 +374,11 @@
       ]
     },
     {
-      "id": 18,
+      "id": 26,
       "type": "PreviewImage",
       "pos": {
-        "0": 1727,
-        "1": -37,
+        "0": 1146,
+        "1": 76,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -401,17 +389,17 @@
         "9": 0
       },
       "size": {
-        "0": 210,
-        "1": 26
+        "0": 301.10858154296875,
+        "1": 404.1618957519531
       },
       "flags": {},
-      "order": 5,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 19
+          "link": 35
         }
       ],
       "outputs": [],
@@ -422,90 +410,101 @@
   ],
   "links": [
     [
-      10,
-      12,
+      22,
+      18,
       0,
-      10,
-      0,
-      "IMAGE"
-    ],
-    [
-      11,
-      11,
-      0,
-      13,
+      21,
       0,
       "IMAGE"
     ],
     [
-      12,
-      11,
-      0,
-      14,
-      0,
-      "IMAGE"
-    ],
-    [
-      13,
-      13,
+      23,
+      22,
       1,
-      14,
+      23,
+      0,
+      "SEGM_DETECTOR"
+    ],
+    [
+      26,
+      22,
+      1,
+      24,
+      0,
+      "SEGM_DETECTOR"
+    ],
+    [
+      32,
+      21,
+      0,
+      24,
+      1,
+      "IMAGE"
+    ],
+    [
+      33,
+      13,
+      0,
+      23,
+      1,
+      "IMAGE"
+    ],
+    [
+      35,
+      28,
+      0,
+      26,
+      0,
+      "IMAGE"
+    ],
+    [
+      36,
+      23,
+      0,
+      28,
       1,
       "MASK"
     ],
     [
-      14,
-      12,
+      37,
+      24,
       0,
-      14,
-      2,
-      "IMAGE"
-    ],
-    [
-      15,
-      10,
-      1,
-      14,
+      28,
       3,
       "MASK"
     ],
     [
-      16,
-      16,
+      38,
+      13,
       0,
-      15,
+      28,
       0,
       "IMAGE"
     ],
     [
-      17,
-      14,
-      1,
-      16,
+      40,
+      21,
       0,
-      "MASK"
-    ],
-    [
-      19,
-      14,
-      0,
-      18,
-      0,
+      28,
+      2,
       "IMAGE"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
-    "workspace_info": {
-      "id": "piCbSMTi0dIjeuu62lm8x"
-    },
     "ds": {
-      "scale": 0.5989500000000307,
+      "scale": 0.9090909090909092,
       "offset": [
-        -150.96197814168224,
-        367.0815003076888
+        427.7914244941995,
+        280.33809338395804
       ]
+    },
+    "workspace_info": {
+      "id": "jJS2XhmAGm0yENFMrDuKl",
+      "saveLock": false,
+      "cloudID": null,
+      "coverMediaPath": null
     },
     "groupNodes": {}
   },
